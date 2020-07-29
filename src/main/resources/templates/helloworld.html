@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>HelloWorld</title>
@@ -8,7 +9,10 @@
 
 Hi there <br><br>
 
-How are you doing?
+How are you doing? <br><br>
+
+<p th:text="'Time on the server is' + ${pDate}">
+
 
 </body>
 </html>
