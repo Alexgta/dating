@@ -19,50 +19,57 @@ CREATE TABLE customer
     CONSTRAINT customer_email_uniqe UNIQUE (email)
 );
 
-INSERT INTO customer (password, first_name, last_name, email)
-VALUES ('password', 'David', 'Adams', 'admin@job4j.com');
+INSERT INTO customer (password, first_name, last_name, email) VALUES ('password', 'David', 'Adams', 'admin@job4j.com');
 INSERT INTO customer (password, first_name, last_name, email) VALUES ('password', 'John', 'Doe', 'john@job4j.com');
 INSERT INTO customer (password, first_name, last_name, email) VALUES ('password', 'Ajay', 'Rao', 'ajay@job4j.com');
 INSERT INTO customer (password, first_name, last_name, email) VALUES ('password', 'Mary', 'Public', 'mary@job4j.com');
 
 
+drop table ad;
+drop table marital_status;
+
 
 CREATE TABLE marital_status
 (
-    id              SERIAL,
+    marital_status_id              int,
     language        CHARACTER VARYING(3),
     gender          CHARACTER(1),
     status_name     CHARACTER VARYING(50),
-    CONSTRAINT marital_status_pk PRIMARY KEY (id)
+    CONSTRAINT marital_status_pk PRIMARY KEY (marital_status_id, language, gender)
 );
 
 
-INSERT INTO marital_status (language, gender, status_name) VALUES ('ru', 'm', 'не женат, и не был');
-INSERT INTO marital_status (language, gender, status_name) VALUES ('ru', 'm', 'разведен');
-INSERT INTO marital_status (language, gender, status_name) VALUES ('ru', 'm', 'вдовец');
-INSERT INTO marital_status (language, gender, status_name) VALUES ('ru', 'm', 'все сложно');
-INSERT INTO marital_status (language, gender, status_name) VALUES ('ru', 'm', 'в процессе развода');
-INSERT INTO marital_status (language, gender, status_name) VALUES ('ru', 'm', 'женат');
+INSERT INTO marital_status (marital_status_id, language, gender, status_name) VALUES (1, 'ru', 'm', 'не женат, и не был');
+INSERT INTO marital_status (marital_status_id, language, gender, status_name) VALUES (2, 'ru', 'm', 'разведен');
+INSERT INTO marital_status (marital_status_id, language, gender, status_name) VALUES (3, 'ru', 'm', 'вдовец');
+INSERT INTO marital_status (marital_status_id, language, gender, status_name) VALUES (4, 'ru', 'm', 'все сложно');
+INSERT INTO marital_status (marital_status_id, language, gender, status_name) VALUES (5, 'ru', 'm', 'в процессе развода');
+INSERT INTO marital_status (marital_status_id, language, gender, status_name) VALUES (6, 'ru', 'm', 'женат');
 
-INSERT INTO marital_status (language, gender, status_name) VALUES ('ru', 'w', 'не замужем, и не была');
-INSERT INTO marital_status (language, gender, status_name) VALUES ('ru', 'w', 'разведена');
-INSERT INTO marital_status (language, gender, status_name) VALUES ('ru', 'w', 'вдова');
-INSERT INTO marital_status (language, gender, status_name) VALUES ('ru', 'w', 'все сложно');
-INSERT INTO marital_status (language, gender, status_name) VALUES ('ru', 'w', 'в процессе развода');
-INSERT INTO marital_status (language, gender, status_name) VALUES ('ru', 'w', 'за мужем');
+INSERT INTO marital_status (marital_status_id, language, gender, status_name) VALUES (1, 'ru', 'w', 'не замужем, и не была');
+INSERT INTO marital_status (marital_status_id, language, gender, status_name) VALUES (2, 'ru', 'w', 'разведена');
+INSERT INTO marital_status (marital_status_id, language, gender, status_name) VALUES (3, 'ru', 'w', 'вдова');
+INSERT INTO marital_status (marital_status_id, language, gender, status_name) VALUES (4, 'ru', 'w', 'все сложно');
+INSERT INTO marital_status (marital_status_id, language, gender, status_name) VALUES (5, 'ru', 'w', 'в процессе развода');
+INSERT INTO marital_status (marital_status_id, language, gender, status_name) VALUES (6, 'ru', 'w', 'за мужем');
 
 
 
 CREATE TABLE ad
 (
     customer_id SERIAL,
+    language    CHARACTER VARYING(3),
+    gender      CHARACTER(1),
     ad_nickname CHARACTER VARYING(100),
-    marital_status_id INTEGER REFERENCES marital_status (id)
+    marital_status_id INTEGER
 );
 
+ALTER TABLE ad ADD CONSTRAINT ad_fk_01 FOREIGN KEY (marital_status_id, language, gender)  REFERENCES marital_status (marital_status_id, language, gender);
 
-INSERT INTO ad (ad_nickname, marital_status_id) VALUES ('Вася', '2');
-INSERT INTO ad (ad_nickname, marital_status_id) VALUES ('Васелиса', '3');
+
+
+INSERT INTO ad (language, gender, ad_nickname, marital_status_id) VALUES ('ru', 'm', 'Вася', '2');
+INSERT INTO ad (language, gender, ad_nickname, marital_status_id) VALUES ('ru', 'w', 'Васелиса', '3');
 
 
 -------------------------------------------------------------

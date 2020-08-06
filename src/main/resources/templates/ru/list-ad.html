@@ -41,7 +41,7 @@
 			
 				<td th:text="${tempAd.customerId}" />
 				<td th:text="${tempAd.adNickname}" />
-				<td th:text="${tempAd.maritalStatus.statusName}" />
+				<td th:text="${tempAd.maritalStatus.getStatusName()}" />
 				
 				<td>
 					<!-- Add "update" button/link -->

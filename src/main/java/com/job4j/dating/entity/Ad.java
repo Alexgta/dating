@@ -1,7 +1,10 @@
 package com.job4j.dating.entity;
 
-import javax.persistence.*;
+
+
 import com.job4j.dating.entity.dict.MaritalStatus;
+import javax.persistence.*;
+
 
 @Entity
 @Table(name="ad")
@@ -12,14 +15,39 @@ public class Ad {
     @Column(name="customer_id")
     private int customerId;
 
+    @Column(name="language")
+    private String language;
+
+    @Column(name="gender")
+    private String gender;
+
     @Column(name="ad_nickname")
     private String adNickname;
 
     @Column(name="marital_status_id")
-    private int  maritalStatusId;
+    private int maritalStatusId;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "marital_status_id", insertable = false, updatable = false)
+
+    /*@JoinColumn(name = "marital_status_id", referencedColumnName="id",  insertable = false, updatable = false)
+    @AttributeOverrides({
+            @AttributeOverride( name = "id", column = @Column(name = "marital_status_id"))
+    })*/
+
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(
+                    name = "marital_status_id",
+                    referencedColumnName = "marital_status_id",
+                    insertable = false, updatable = false),
+            @JoinColumn(
+                    name = "gender",
+                    referencedColumnName = "gender",
+                    insertable = false, updatable = false),
+            @JoinColumn(
+                    name = "language",
+                    referencedColumnName = "language",
+                    insertable = false, updatable = false)
+    })
     private MaritalStatus maritalStatus;
 
 
@@ -27,14 +55,10 @@ public class Ad {
     public Ad() {
     }
 
-    public Ad(int customerId, String adNickname, int maritalStatusId, MaritalStatus maritalStatus) {
+    public Ad(int customerId, String language, String gender, String adNickname, int maritalStatusId, MaritalStatus maritalStatus) {
         this.customerId = customerId;
-        this.adNickname = adNickname;
-        this.maritalStatusId = maritalStatusId;
-        this.maritalStatus = maritalStatus;
-    }
-
-    public Ad(String adNickname, int maritalStatusId, MaritalStatus maritalStatus) {
+        this.language = language;
+        this.gender = gender;
         this.adNickname = adNickname;
         this.maritalStatusId = maritalStatusId;
         this.maritalStatus = maritalStatus;
@@ -56,6 +80,14 @@ public class Ad {
         this.adNickname = adNickname;
     }
 
+    public MaritalStatus getMaritalStatus() {
+        return maritalStatus;
+    }
+
+    public void setMaritalStatus(MaritalStatus maritalStatus) {
+        this.maritalStatus = maritalStatus;
+    }
+
     public int getMaritalStatusId() {
         return maritalStatusId;
     }
@@ -64,12 +96,20 @@ public class Ad {
         this.maritalStatusId = maritalStatusId;
     }
 
-    public MaritalStatus getMaritalStatus() {
-        return maritalStatus;
+    public String getLanguage() {
+        return language;
     }
 
-    public void setMaritalStatus(MaritalStatus maritalStatus) {
-        this.maritalStatus = maritalStatus;
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
 }

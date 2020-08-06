@@ -29,10 +29,10 @@
 
 			<label>Family status</label>
 			<select th:field="*{maritalStatusId}" class="form-control mb-4 col-4" name="carsBrandId">
-				<option th:each="lMaritalStatuses : ${maritalStatuses}"
-						th:value="${lMaritalStatuses.id}"
-						th:selected="${lMaritalStatuses.id.equals(maritalStatusId)}"
-						th:text="${lMaritalStatuses.statusName}">Each</option>
+				<option th:each="theMaritalStatuses : ${maritalStatuses}"
+						th:value="${theMaritalStatuses.genderLangPk.maritalStatusId}"
+						th:selected="${theMaritalStatuses.genderLangPk.maritalStatusId.equals(maritalStatusId)}"
+						th:text="${theMaritalStatuses.statusName}">Each</option>
 			</select>
 
 
