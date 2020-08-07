@@ -4,6 +4,8 @@ package com.job4j.dating.entity;
 
 import com.job4j.dating.entity.dict.MaritalStatus;
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -49,6 +51,20 @@ public class Ad {
                     insertable = false, updatable = false)
     })
     private MaritalStatus maritalStatus;
+
+    /*@ManyToMany
+    @JoinColumn(
+            name = "gender", referencedColumnName = "gender",
+            nullable = false,
+            insertable = false, updatable = false
+    )*/
+    /*@ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "marital_status",
+            joinColumns = @JoinColumn(name = "gender", referencedColumnName = "gender")
+            //inverseJoinColumns = @JoinColumn(name = "gender", referencedColumnName = "gender")
+    )
+    private List<MaritalStatus> MaritalStatusList;*/
 
 
     // Standart constructors, geters and seters

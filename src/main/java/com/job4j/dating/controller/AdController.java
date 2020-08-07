@@ -53,7 +53,8 @@ public class AdController {
 		
 		// get the Ad from the service
 		Ad theAd = theAdService.findById(theId);
-		List<MaritalStatus> theMaritalStatuses = theMaritalStatusService.findAll();
+		List<MaritalStatus> theMaritalStatuses = theMaritalStatusService.findCurrent(theAd.getLanguage(), theAd.getGender());
+		//List<MaritalStatus> theMaritalStatuses = theAd.getMaritalStatusList();
 
 		// set Ad as a model attribute to pre-populate the form
 		theModel.addAttribute("ad", theAd);

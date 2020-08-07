@@ -24,6 +24,11 @@ public class MaritalStatusServiceImpl implements MaritalStatusService {
 	}
 
 	@Override
+	public List<MaritalStatus> findCurrent(String language, String gender) {
+		return theMaritalStatusRepository.findByLanguageAndGender(language, gender);
+	}
+
+	@Override
 	public MaritalStatus findById(int theId) {
 		Optional<MaritalStatus> result = theMaritalStatusRepository.findById(theId);
 

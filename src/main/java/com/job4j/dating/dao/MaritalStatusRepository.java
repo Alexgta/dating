@@ -10,4 +10,6 @@ public interface MaritalStatusRepository extends JpaRepository<MaritalStatus, In
 
     public List<MaritalStatus> findAll();
 
+    public List<MaritalStatus> findByLanguageAndGender(String language, String gender);
+
 }

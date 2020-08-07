@@ -9,6 +9,8 @@ public interface MaritalStatusService {
 
     public List<MaritalStatus> findAll();
 
+    public List<MaritalStatus> findCurrent(String language, String gender);
+
     public MaritalStatus findById(int theId);
 
     public void save(MaritalStatus theMaritalStatus);
