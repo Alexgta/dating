@@ -1,11 +1,9 @@
 package com.job4j.dating.entity;
 
 
-
 import com.job4j.dating.entity.dict.MaritalStatus;
 import javax.persistence.*;
-import java.util.List;
-import java.util.Set;
+import java.util.Date;
 
 
 @Entity
@@ -23,12 +21,23 @@ public class Ad {
     @Column(name="gender")
     private String gender;
 
+    @Column(name="city_id")
+    private int cityId;
+
+    @Column(name="date_of_birth")
+    private java.util.Date dateOfBirth;
+
     @Column(name="ad_nickname")
     private String adNickname;
 
     @Column(name="marital_status_id")
     private int maritalStatusId;
 
+    @Column(name="latitude", insertable = false, updatable = false)
+    private float latitude;
+
+    @Column(name="longitude", insertable = false, updatable = false)
+    private float longitude;
 
     /*@JoinColumn(name = "marital_status_id", referencedColumnName="id",  insertable = false, updatable = false)
     @AttributeOverrides({
@@ -71,12 +80,25 @@ public class Ad {
     public Ad() {
     }
 
-    public Ad(int customerId, String language, String gender, String adNickname, int maritalStatusId, MaritalStatus maritalStatus) {
+    public Ad(int customerId,
+              String language,
+              String gender,
+              int cityId,
+              Date dateOfBirth,
+              String adNickname,
+              int maritalStatusId,
+              float latitude,
+              float longitude,
+              MaritalStatus maritalStatus) {
         this.customerId = customerId;
         this.language = language;
         this.gender = gender;
+        this.cityId = cityId;
+        this.dateOfBirth = dateOfBirth;
         this.adNickname = adNickname;
         this.maritalStatusId = maritalStatusId;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.maritalStatus = maritalStatus;
     }
 
@@ -126,6 +148,38 @@ public class Ad {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public int getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(int cityId) {
+        this.cityId = cityId;
+    }
+
+    public float getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(float latitude) {
+        this.latitude = latitude;
+    }
+
+    public float getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(float longitude) {
+        this.longitude = longitude;
     }
 
 }
