@@ -1,9 +1,9 @@
 package com.job4j.dating.service;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.stream.Collectors;
-
+import com.job4j.dating.controller.dto.UserRegistrationDto;
+import com.job4j.dating.dao.WebUserRepository;
+import com.job4j.dating.entity.WebUser;
+import com.job4j.dating.entity.dict.WebRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,38 +12,39 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.job4j.dating.entity.Role;
-import com.job4j.dating.entity.User;
-import com.job4j.dating.dao.UserRepository;
-import com.job4j.dating.controller.dto.UserRegistrationDto;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 
 @Service
-public class UserServiceImpl implements UserService {
+public class WebUserServiceImpl implements WebUserService {
 
     @Autowired
-    private UserRepository userRepository;
+    private WebUserRepository theWebUserRepository;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    public User findByEmail(String email){
-        return userRepository.findByEmail(email);
+    public WebUser findByEmail(String email){
+        return theWebUserRepository.findByEmail(email);
     }
 
-    public User save(UserRegistrationDto registration){
-        User user = new User();
-        user.setFirstName(registration.getName());
-        /*user.setLastName(registration.getLastName());*/
+    public WebUser save(UserRegistrationDto registration){
+        WebUser user = new WebUser();
+        user.setName(registration.getName());
         user.setEmail(registration.getEmail());
         user.setPassword(passwordEncoder.encode(registration.getPassword()));
-        user.setRoles(Arrays.asList(new Role("ROLE_USER")));
-        return userRepository.save(user);
+        user.setCurRole(registration.getCurRole());
+        //user.setRoles(Arrays.asList(new WebRole("WEB")));
+        user.setRoles(new ArrayList<>());
+        return theWebUserRepository.save(user);
     }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email);
+        WebUser user = theWebUserRepository.findByEmail(email);
         if (user == null){
             throw new UsernameNotFoundException("Invalid username or password.");
         }
@@ -52,7 +53,7 @@ public class UserServiceImpl implements UserService {
                 mapRolesToAuthorities(user.getRoles()));
     }
 
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<WebRole> roles){
         return roles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());

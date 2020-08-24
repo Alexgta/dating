@@ -13,10 +13,10 @@ import javax.validation.constraints.NotEmpty;
 public class UserRegistrationDto {
 
     @NotEmpty
-    private String firstName;
+    private String name;
 
-    @NotEmpty
-    private String lastName;
+    /*@NotEmpty
+    private String lastName;*/
 
     @NotEmpty
     private String password;
@@ -32,23 +32,18 @@ public class UserRegistrationDto {
     @NotEmpty
     private String confirmEmail;
 
+    @NotEmpty
+    private String curRole;
+
     @AssertTrue
     private Boolean terms;
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {
@@ -89,6 +84,14 @@ public class UserRegistrationDto {
 
     public void setTerms(Boolean terms) {
         this.terms = terms;
+    }
+
+    public String getCurRole() {
+        return curRole;
+    }
+
+    public void setCurRole(String curRole) {
+        this.curRole = curRole;
     }
 
 }

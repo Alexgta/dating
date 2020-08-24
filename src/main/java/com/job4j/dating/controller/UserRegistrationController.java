@@ -1,8 +1,8 @@
 package com.job4j.dating.controller;
 
 
-import com.job4j.dating.entity.User;
-import com.job4j.dating.service.UserService;
+import com.job4j.dating.entity.WebUser;
+import com.job4j.dating.service.WebUserService;
 import com.job4j.dating.controller.dto.UserRegistrationDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +20,11 @@ import javax.validation.Valid;
 @RequestMapping("/registration")
 public class UserRegistrationController {
 
+    /*@Autowired
+    private UserService userService;*/
+
     @Autowired
-    private UserService userService;
+    private WebUserService theWebUserService;
 
     @ModelAttribute("user")
     public UserRegistrationDto userRegistrationDto() {
@@ -34,10 +37,9 @@ public class UserRegistrationController {
     }
 
     @PostMapping
-    public String registerUserAccount(@ModelAttribute("user") @Valid UserRegistrationDto userDto,
-                                      BindingResult result){
+    public String registerUserAccount(@ModelAttribute("user") @Valid UserRegistrationDto userDto, BindingResult result) {
 
-        User existing = userService.findByEmail(userDto.getEmail());
+        WebUser existing = theWebUserService.findByEmail(userDto.getEmail());
         if (existing != null){
             result.rejectValue("email", null, "There is already an account registered with that email");
         }
@@ -46,7 +48,7 @@ public class UserRegistrationController {
             return "registration";
         }
 
-        userService.save(userDto);
+        theWebUserService.save(userDto);
         return "redirect:/registration?success";
     }
 
