@@ -15,9 +15,6 @@ public class UserRegistrationDto {
     @NotEmpty
     private String name;
 
-    /*@NotEmpty
-    private String lastName;*/
-
     @NotEmpty
     private String password;
 
